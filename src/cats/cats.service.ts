@@ -15,13 +15,13 @@ export class CatsService {
     return this.catModel.find().exec()
   }
 
-  async findOne(id: number): Promise<Cat> {
+  async findOne(id: string): Promise<Cat> {
     // this.catModel.findOne({ _id: id }).exec()
     return this.catModel.findById(id).exec()
   }
 
-  async update(id: number, updateCatDto: Cat): Promise<any> {
-    return this.catModel.updateOne({ id }, updateCatDto)
+  async update(id: string, updateCatDto: Cat): Promise<any> {
+    return this.catModel.updateOne({ _id: id }, updateCatDto)
   }
 
   async remove(id: number): Promise<any> {
