@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common'
 import { Cat } from './dto/cat.dto'
-import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose'
+import { InjectModel } from '@nestjs/mongoose'
 
 @Injectable()
 export class CatsService {

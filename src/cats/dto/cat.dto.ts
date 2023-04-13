@@ -1,10 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import { HydratedDocument } from 'mongoose'
-
-export type CatDocument = HydratedDocument<Cat>
-
+import { Document } from 'mongoose'
 @Schema()
-export class Cat {
+export class Cat extends Document {
   @Prop({ required: true })
   name: string
 
@@ -20,7 +17,7 @@ export const CatSchema = SchemaFactory.createForClass(Cat)
 CatSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
-  transform: (doc, ret: CatDocument) => {
+  transform: (doc, ret: Cat) => {
     delete ret._id
   }
 })

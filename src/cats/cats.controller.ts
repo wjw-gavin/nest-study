@@ -1,5 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { CatsService } from './cats.service';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete
+} from '@nestjs/common'
+import { CatsService } from './cats.service'
 import { Cat } from './dto/cat.dto'
 
 @Controller('cats')
@@ -8,24 +16,25 @@ export class CatsController {
 
   @Post()
   async create(@Body() createCatDto: Cat) {
-    console.log(createCatDto)
-    
     return await this.catsService.create(createCatDto)
   }
 
   @Get()
-  findAll() {
-    return this.catsService.findAll()
+  async findAll() {
+    return await this.catsService.findAll()
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.catsService.findOne(id)
+  async findOne(@Param('id') id: string) {
+    const cat = this.catsService.findOne(id)
+    if (cat) {
+      return cat
+    }
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCatDto: Cat) {
-    return this.catsService.update(id, updateCatDto)
+  async update(@Param('id') id: string, @Body() updateCatDto: Cat) {
+    return await this.catsService.update(id, updateCatDto)
   }
 
   @Delete(':id')
