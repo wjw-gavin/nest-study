@@ -12,6 +12,7 @@ export class CatsService {
     const now = format(Date.now(), 'yyyy-MM-dd HH:mm:ss')
     createCatDto.createTime = now
     createCatDto.updateTime = now
+
     return this.catModel.create(createCatDto)
   }
 
@@ -26,6 +27,7 @@ export class CatsService {
   async update(id: string, updateCatDto: Cat): Promise<any> {
     const now = format(Date.now(), 'yyyy-MM-dd HH:mm:ss')
     updateCatDto.updateTime = now
+
     return this.catModel.findByIdAndUpdate(id, updateCatDto, {
       returnDocument: 'after'
     })
