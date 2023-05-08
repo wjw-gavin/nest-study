@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import { User, UsersService } from 'src/users/users.service'
+import { UsersService } from 'src/users/users.service'
 
 @Injectable()
 export class AuthService {
@@ -8,11 +8,10 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService
   ) {}
-  async validateUser(mobile: string, pass: string): Promise<any> {
-    console.log('user')
-    const user = await this.usersService.findOne(mobile)
 
-    if (user?.password === pass) {
+  async validateUser(mobile: string, password: string): Promise<any> {
+    const user = await this.usersService.findOne(mobile)
+    if (user?.password === password) {
       const result = Object.assign({}, user)
 
       delete result.password
@@ -21,8 +20,13 @@ export class AuthService {
     return null
   }
 
-  async login(user: User) {
-    const payload = { username: user.mobile, sub: user.userId }
+  async login(mobile: string, password: string) {
+    const user = await this.usersService.findOne(mobile)
+    if (user?.password !== password) {
+      throw new NotFoundException('用户不存在')
+    }
+    const payload = { mobile: user.mobile, userId: user.userId }
+
     return {
       access_token: this.jwtService.sign(payload)
     }

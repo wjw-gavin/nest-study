@@ -6,7 +6,6 @@ import { AuthService } from './auth.service'
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(private authService: AuthService) {
-    // 如果不传配置项，默认字段 username
     super({
       usernameField: 'mobile'
     })
@@ -14,6 +13,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 
   async validate(mobile: string, password: string): Promise<any> {
     const user = await this.authService.validateUser(mobile, password)
+
     if (!user) {
       throw new UnauthorizedException()
     }
