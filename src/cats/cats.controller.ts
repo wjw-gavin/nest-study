@@ -1,11 +1,11 @@
 import {
-  Controller,
   Get,
   Post,
   Body,
   Patch,
   Param,
-  Delete
+  Delete,
+  Controller
 } from '@nestjs/common'
 import { CatsService } from './cats.service'
 import { Cat } from './dto/cat.dto'

@@ -21,9 +21,11 @@ export class CatsService {
   }
 
   async update(id: string, updateCatDto: Cat): Promise<any> {
-    return this.catModel.findByIdAndUpdate(id, updateCatDto, {
-      returnDocument: 'after'
-    })
+    return this.catModel
+      .findByIdAndUpdate(id, updateCatDto, {
+        returnDocument: 'after'
+      })
+      .exec()
   }
 
   async remove(id: string): Promise<any> {
