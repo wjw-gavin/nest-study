@@ -9,23 +9,24 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
-  async validateUser(mobile: string, password: string): Promise<any> {
-    const user = await this.usersService.findOne(mobile)
-    if (user?.password === password) {
-      const result = Object.assign({}, user)
+  // async validateUser(mobile: string, password: string): Promise<any> {
+  //   const user = await this.usersService.findOneByMobile(mobile)
+  //   if (user?.password === password) {
+  //     const result = Object.assign({}, user)
 
-      delete result.password
-      return result
-    }
-    return null
-  }
+  //     delete result.password
+  //     return result
+  //   }
+  //   return null
+  // }
 
   async login(mobile: string, password: string) {
-    const user = await this.usersService.findOne(mobile)
+    const user = await this.usersService.findOneByMobile(mobile)
     if (user?.password !== password) {
       throw new NotFoundException('用户不存在')
     }
-    const payload = { mobile: user.mobile, userId: user.userId }
+
+    const payload = { mobile: user.mobile, userId: user.id }
 
     return {
       access_token: this.jwtService.sign(payload)

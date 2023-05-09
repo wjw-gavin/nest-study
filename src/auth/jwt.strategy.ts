@@ -10,6 +10,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       usernameField: 'mobile',
       ignoreExpiration: false,
       secretOrKey: JWT.secret,
+      // jwtFromRequest: ExtractJwt.fromHeader('X-Token')
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
     })
   }
