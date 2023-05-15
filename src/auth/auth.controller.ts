@@ -19,6 +19,7 @@ export class AuthController {
 
   @Get('profile')
   async getProfile(@Request() req: any) {
+    // req.user 是在身份验证中设置的用户对象，它通常包含有关已认证用户的信息
     const { userId } = req.user
     const user = await this.usersService.findOne(userId)
     return user
