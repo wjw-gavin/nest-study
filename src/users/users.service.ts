@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { CreateUserDto } from './dto/create-user.dto'
@@ -13,7 +13,11 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    return this.usersRepository.create(createUserDto)
+    const user = await this.findOneByMobile(createUserDto.mobile)
+    if (user) {
+      throw new HttpException('用户已存在!', HttpStatus.BAD_REQUEST)
+    }
+    return this.usersRepository.save(createUserDto)
   }
 
   async findAll(): Promise<User[]> {
@@ -25,7 +29,7 @@ export class UsersService {
   }
 
   async findOneByMobile(mobile: string): Promise<User> {
-    const users = await this.usersRepository.find()
+    const users = await this.findAll()
     return users.find((user) => user.mobile === mobile)
   }
 
@@ -35,6 +39,7 @@ export class UsersService {
   }
 
   async remove(id: number): Promise<any> {
-    return this.usersRepository.delete(id)
+    await this.usersRepository.delete(id)
+    return []
   }
 }

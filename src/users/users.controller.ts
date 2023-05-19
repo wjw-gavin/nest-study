@@ -6,7 +6,9 @@ import {
   Param,
   Delete,
   Controller,
-  ParseIntPipe
+  ParseIntPipe,
+  UseInterceptors,
+  ClassSerializerInterceptor
 } from '@nestjs/common'
 import { format } from 'date-fns'
 import { UsersService } from './users.service'
@@ -14,6 +16,7 @@ import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 
 @Controller('users')
+@UseInterceptors(ClassSerializerInterceptor)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -22,8 +25,7 @@ export class UsersController {
     const user = await this.usersService.create(createUserDto)
     return {
       ...user,
-      create_time_display: format(user.create_time, 'yyyy-MM-dd HH:mm:ss'),
-      update_time: user.update_time
+      create_time_display: format(user.create_time, 'yyyy-MM-dd HH:mm:ss')
     }
   }
 
@@ -33,7 +35,7 @@ export class UsersController {
     return users.map((user) => ({
       ...user,
       create_time_display: format(user.create_time, 'yyyy-MM-dd HH:mm:ss'),
-      update_time: user.update_time
+      update_time_display: format(user.update_time, 'yyyy-MM-dd HH:mm:ss')
     }))
   }
 
@@ -43,11 +45,15 @@ export class UsersController {
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserDto: UpdateUserDto
   ) {
-    return this.usersService.update(id, updateUserDto)
+    const user = await this.usersService.update(id, updateUserDto)
+    return {
+      ...user,
+      update_time_display: format(user.update_time, 'yyyy-MM-dd HH:mm:ss')
+    }
   }
 
   @Delete(':id')
