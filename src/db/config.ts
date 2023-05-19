@@ -1,3 +1,5 @@
 export const dbConfig = {
-  URI: 'mongodb://127.0.0.1:27017/test'
+  port: 3306,
+  username: 'root',
+  password: 'wjw920325'
 }
