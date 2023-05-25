@@ -22,11 +22,7 @@ export class UsersController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    const user = await this.usersService.create(createUserDto)
-    return {
-      ...user,
-      create_time_display: format(user.create_time, 'yyyy-MM-dd HH:mm:ss')
-    }
+    return await this.usersService.create(createUserDto)
   }
 
   @Get()
@@ -49,15 +45,12 @@ export class UsersController {
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserDto: UpdateUserDto
   ) {
-    const user = await this.usersService.update(id, updateUserDto)
-    return {
-      ...user,
-      update_time_display: format(user.update_time, 'yyyy-MM-dd HH:mm:ss')
-    }
+    return await this.usersService.update(id, updateUserDto)
   }
 
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.remove(id)
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    await this.usersService.remove(id)
+    return []
   }
 }
