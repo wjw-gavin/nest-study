@@ -12,7 +12,7 @@ export class UsersService {
     private usersRepository: Repository<User>
   ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto) {
     const user = await this.findOneByMobile(createUserDto.mobile)
     if (user) {
       throw new HttpException('用户已存在!', HttpStatus.BAD_REQUEST)
@@ -20,25 +20,25 @@ export class UsersService {
     return this.usersRepository.save(createUserDto)
   }
 
-  async findAll(): Promise<User[]> {
+  async findAll() {
     return this.usersRepository.find()
   }
 
-  async findOne(id: number): Promise<User> {
+  async findOne(id: number) {
     return this.usersRepository.findOneBy({ id })
   }
 
-  async findOneByMobile(mobile: string): Promise<User> {
+  async findOneByMobile(mobile: string){
     const users = await this.findAll()
     return users.find((user) => user.mobile === mobile)
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<any> {
+  async update(id: number, updateUserDto: UpdateUserDto) {
     await this.usersRepository.update(id, updateUserDto)
     return this.findOne(id)
   }
 
-  async remove(id: number): Promise<any> {
+  async remove(id: number) {
     return await this.usersRepository.delete(id)
   }
 }
