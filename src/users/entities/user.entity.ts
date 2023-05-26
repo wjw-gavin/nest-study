@@ -3,9 +3,11 @@ import {
   Entity,
   CreateDateColumn,
   UpdateDateColumn,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
+  OneToMany
 } from 'typeorm'
 import { Exclude } from 'class-transformer'
+import { Article } from 'src/articles/entities/article.entity'
 
 @Entity()
 export class User {
@@ -26,16 +28,18 @@ export class User {
   @Column()
   password: string
 
+  @Column('enum', { enum: ['root', 'author', 'visitor'], default: 'visitor' })
+  role: string
+
+  @OneToMany(() => Article, (article) => article.author)
+  articles: Article[]
+
   @Column({ default: true })
   isActive: boolean
 
-  @CreateDateColumn({
-    type: 'timestamp'
-  })
+  @CreateDateColumn({ type: 'timestamp' })
   create_time: Date
 
-  @UpdateDateColumn({
-    type: 'timestamp'
-  })
+  @UpdateDateColumn({ type: 'timestamp' })
   update_time: Date
 }
