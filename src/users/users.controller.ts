@@ -3,6 +3,7 @@ import {
   Post,
   Body,
   Patch,
+  Query,
   Param,
   Delete,
   Controller,
@@ -10,7 +11,6 @@ import {
   UseInterceptors,
   ClassSerializerInterceptor
 } from '@nestjs/common'
-import { format } from 'date-fns'
 import { UsersService } from './users.service'
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
@@ -26,13 +26,8 @@ export class UsersController {
   }
 
   @Get()
-  async findAll() {
-    const users = await this.usersService.findAll()
-    return users.map((user) => ({
-      ...user,
-      create_time_display: format(user.create_time, 'yyyy-MM-dd HH:mm:ss'),
-      update_time_display: format(user.update_time, 'yyyy-MM-dd HH:mm:ss')
-    }))
+  async findAll(@Query('page') page = 1, @Query('pageSize') pageSize = 10) {
+    return await this.usersService.findAll(page, pageSize)
   }
 
   @Get(':id')

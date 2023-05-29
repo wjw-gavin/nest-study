@@ -1,4 +1,12 @@
-import { Controller, Post, Get, Body, Request, ClassSerializerInterceptor, UseInterceptors } from '@nestjs/common'
+import {
+  Controller,
+  Post,
+  Get,
+  Body,
+  Request,
+  ClassSerializerInterceptor,
+  UseInterceptors
+} from '@nestjs/common'
 import { AuthService } from './auth.service'
 import { UsersService } from 'src/users/users.service'
 import { User } from '../users/entities/user.entity'
@@ -10,7 +18,7 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly usersService: UsersService
-  ) { }
+  ) {}
 
   @Public()
   @Post('login')

@@ -6,7 +6,8 @@ import {
   Patch,
   Param,
   Delete,
-  Req
+  Req,
+  Query
 } from '@nestjs/common'
 import { ArticlesService } from './articles.service'
 import { CreateArticleDto } from './dto/create-article.dto'
@@ -15,7 +16,7 @@ import { UserInfoDto } from 'src/users/dto/user-info.dto'
 
 @Controller('articles')
 export class ArticlesController {
-  constructor(private readonly articlesService: ArticlesService) { }
+  constructor(private readonly articlesService: ArticlesService) {}
 
   @Post()
   create(@Body() createArticleDto: CreateArticleDto) {
@@ -23,8 +24,12 @@ export class ArticlesController {
   }
 
   @Get()
-  findAll(@Req() req: { user: UserInfoDto }) {
-    return this.articlesService.findAll(req.user)
+  async findAll(
+    @Req() req: { user: UserInfoDto },
+    @Query('page') page = 1,
+    @Query('pageSize') pageSize = 10
+  ) {
+    return this.articlesService.findAll(req.user, page, pageSize)
   }
 
   @Get(':id')

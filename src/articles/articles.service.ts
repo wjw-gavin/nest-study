@@ -17,14 +17,21 @@ export class ArticlesService {
     return await this.articleRepository.save(createArticleDto)
   }
 
-  async findAll(user: UserInfoDto) {
-    const articles =  await this.articleRepository.find()
-    return articles.map(item => {
-      return { 
-        ...item, 
-        author: user 
+  async findAll(user: UserInfoDto, page: number, pageSize: number) {
+    const [articles, total] = await this.articleRepository.findAndCount({
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      order: { create_time: 'DESC' }
+    })
+
+    const data = articles.map((item) => {
+      return {
+        ...item,
+        author: user
       }
     })
+
+    return { total, data }
   }
 
   async findOne(id: number, user: UserInfoDto) {
@@ -35,7 +42,7 @@ export class ArticlesService {
     }
   }
 
- async update(id: number, updateArticleDto: UpdateArticleDto) {
+  async update(id: number, updateArticleDto: UpdateArticleDto) {
     await this.articleRepository.update(id, updateArticleDto)
     return await this.articleRepository.findOneBy({ id })
   }

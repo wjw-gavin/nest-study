@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
+import { format } from 'date-fns'
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 import { User } from './entities/user.entity'
@@ -20,17 +21,28 @@ export class UsersService {
     return this.usersRepository.save(createUserDto)
   }
 
-  async findAll() {
-    return this.usersRepository.find()
+  async findAll(page: number, pageSize: number) {
+    const [users, total] = await this.usersRepository.findAndCount({
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      order: { create_time: 'DESC' }
+    })
+
+    const data = users.map((user) => ({
+      ...user,
+      create_time_display: format(user.create_time, 'yyyy-MM-dd HH:mm:ss'),
+      update_time_display: format(user.update_time, 'yyyy-MM-dd HH:mm:ss')
+    }))
+
+    return { total, data }
   }
 
   async findOne(id: number) {
     return this.usersRepository.findOneBy({ id })
   }
 
-  async findOneByMobile(mobile: string){
-    const users = await this.findAll()
-    return users.find((user) => user.mobile === mobile)
+  async findOneByMobile(mobile: string) {
+    return await this.usersRepository.findOneBy({ mobile })
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
