@@ -5,7 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   Entity,
-JoinColumn
+  JoinColumn
 } from 'typeorm'
 import { User } from 'src/users/entities/user.entity'
 
@@ -17,7 +17,7 @@ export class Article {
   @Column({ length: 50 })
   title: string
 
-  @Column({type: 'text'})
+  @Column({ type: 'text' })
   content: string
 
   @Column({ type: 'int', default: 0 })
@@ -27,7 +27,7 @@ export class Article {
   collect_count: number
 
   @ManyToOne(() => User, (user) => user.articles)
-  @JoinColumn({name: 'author_id'})
+  @JoinColumn({ name: 'author_id' })
   author: User
 
   @CreateDateColumn({ type: 'timestamp' })
