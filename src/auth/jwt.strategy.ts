@@ -1,6 +1,6 @@
+import { Injectable } from '@nestjs/common'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { PassportStrategy } from '@nestjs/passport'
-import { Injectable } from '@nestjs/common'
 import { JWT } from 'src/commons/constants'
 
 @Injectable()
@@ -8,7 +8,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
       usernameField: 'mobile',
-      ignoreExpiration: false,
       secretOrKey: JWT.secret,
       // jwtFromRequest: ExtractJwt.fromHeader('X-Token')
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
@@ -16,7 +15,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    delete payload.iat
-    return payload
+    const user = {
+      id: payload.id,
+      name: payload.name,
+      mobile: payload.mobile
+    }
+    return user
   }
 }

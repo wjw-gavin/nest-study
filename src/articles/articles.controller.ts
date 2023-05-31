@@ -10,9 +10,8 @@ import {
   Query
 } from '@nestjs/common'
 import { ArticlesService } from './articles.service'
-import { CreateArticleDto } from './dto/create-article.dto'
-import { UpdateArticleDto } from './dto/update-article.dto'
-import { UserInfoDto } from 'src/users/dto/user-info.dto'
+import { CreateArticleDto, UpdateArticleDto } from './dto/article.dto'
+import { UserInfoDto } from 'src/users/dto/user.dto'
 
 @Controller('articles')
 export class ArticlesController {

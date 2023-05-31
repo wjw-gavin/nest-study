@@ -11,7 +11,7 @@ import { AuthService } from './auth.service'
 import { UsersService } from 'src/users/users.service'
 import { User } from '../users/entities/user.entity'
 import { Public } from './decorators/public.decorator'
-import { UserInfoDto } from 'src/users/dto/user-info.dto'
+import { UserInfoDto } from 'src/users/dto/user.dto'
 
 @Controller('auth')
 export class AuthController {
@@ -24,6 +24,11 @@ export class AuthController {
   @Post('login')
   async login(@Body() user: User) {
     return this.authService.login(user.mobile, user.password)
+  }
+
+  @Post('logout')
+  async logout(@Request() req: { user: UserInfoDto }) {
+    await this.authService.logout(req.user)
   }
 
   @Get('profile')

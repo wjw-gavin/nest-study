@@ -23,7 +23,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
         code: status,
         message: this.errMsg || message,
         path: request.url,
-        statusCode: status,
         timestamp: new Date().toISOString()
       }
     })

@@ -12,8 +12,7 @@ import {
   ClassSerializerInterceptor
 } from '@nestjs/common'
 import { UsersService } from './users.service'
-import { CreateUserDto } from './dto/create-user.dto'
-import { UpdateUserDto } from './dto/update-user.dto'
+import { CreateUserDto, UpdateUserDto } from './dto/user.dto'
 
 @Controller('users')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -31,8 +30,8 @@ export class UsersController {
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.findOne(id)
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    return await this.usersService.findOne(id)
   }
 
   @Patch(':id')

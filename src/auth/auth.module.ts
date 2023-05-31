@@ -10,7 +10,15 @@ import { JWT } from 'src/commons/constants'
 import { JwtAuthGuard } from './jwt-auth.guard'
 
 @Module({
-  imports: [UsersModule, PassportModule, JwtModule.register(JWT)],
+  imports: [
+    UsersModule,
+    PassportModule,
+    JwtModule.register({
+      ...JWT,
+      signOptions: { expiresIn: '1d' },
+      global: true
+    })
+  ],
   providers: [
     AuthService,
     JwtStrategy,
