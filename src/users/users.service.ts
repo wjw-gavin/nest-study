@@ -2,8 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { format } from 'date-fns'
-import { CreateUserDto } from './dto/create-user.dto'
-import { UpdateUserDto } from './dto/update-user.dto'
+import { CreateUserDto, UpdateUserDto } from './dto/user.dto'
 import { User } from './entities/user.entity'
 
 @Injectable()
@@ -18,7 +17,9 @@ export class UsersService {
     if (user) {
       throw new HttpException('用户已存在!', HttpStatus.BAD_REQUEST)
     }
-    return this.usersRepository.save(createUserDto)
+
+    const newUser = this.usersRepository.create(createUserDto)
+    return this.usersRepository.save(newUser)
   }
 
   async findAll(page: number, pageSize: number) {
@@ -42,7 +43,13 @@ export class UsersService {
   }
 
   async findOneByMobile(mobile: string) {
-    return await this.usersRepository.findOneBy({ mobile })
+    // 由于密码字段使用了 select: false，这里使用 addSelect 来添加密码字段
+    // 以便查询出的用户信息携带密码字段，用于验证等操作
+    return await this.usersRepository
+      .createQueryBuilder('user')
+      .addSelect('user.password')
+      .where('user.mobile = :mobile', { mobile })
+      .getOne()
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
