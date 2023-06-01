@@ -1,20 +1,10 @@
-import {
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  Entity,
-  JoinColumn
-} from 'typeorm'
+import { Column, Entity, ManyToOne, JoinColumn } from 'typeorm'
+import { BaseEntity } from '../../commons/entities/base-entity'
 import { User } from 'src/users/entities/user.entity'
 
 // @Entity('article')
 @Entity()
-export class Article {
-  @PrimaryGeneratedColumn()
-  id: number
-
+export class Article extends BaseEntity {
   @Column({ length: 50 })
   title: string
 
@@ -30,10 +20,4 @@ export class Article {
   @ManyToOne(() => User, (user) => user.articles)
   @JoinColumn({ name: 'author_id' })
   author: User
-
-  @CreateDateColumn({ type: 'timestamp' })
-  create_time: Date
-
-  @UpdateDateColumn({ type: 'timestamp' })
-  update_time: Date
 }
