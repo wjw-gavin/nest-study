@@ -21,22 +21,13 @@ export class AuthService {
       throw new BadRequestException('密码错误！')
     }
 
-    const payload = {
-      id: user.id,
-      name: user.name,
-      mobile: user.mobile
-    }
-
     return {
-      access_token: this.jwtService.sign(payload)
+      access_token: this.jwtService.sign(user)
     }
   }
 
   async logout(user: UserInfoDto) {
-    // 将 JWT 的过期时间设置为当前时间，使 JWT 失效
-    const payload = { id: user.id }
-
-    const token = this.jwtService.sign(payload, { expiresIn: 0 })
-    console.log(token)
+    // TODO: jwt 失效
+    console.log(user)
   }
 }
