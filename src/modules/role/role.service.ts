@@ -59,14 +59,13 @@ export class RoleService {
 
   /* 通过 id 更新 */
   async update(id: number, updateRoleDto: UpdateRoleDto) {
-    // return await this.roleRepository.update(id, updateRoleDto)
-    return await this.roleRepository
-      .createQueryBuilder('role')
-      .relation('users')
-      .update()
-      .set(updateRoleDto)
-      .where({ id })
-      .execute()
+    return await this.roleRepository.update(id, updateRoleDto)
+    // return await this.roleRepository
+    //   .createQueryBuilder()
+    //   .update(UpdateRoleDto)
+    //   .set(updateRoleDto)
+    //   .where({ id })
+    //   .execute()
   }
 
   /* 通过id删除 */
