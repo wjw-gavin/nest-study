@@ -20,8 +20,8 @@ export class Role extends BaseEntity {
   @Column()
   count: number
 
-  /* 角色状态（0正常 1停用） */
-  @Column({ type: 'enum', enum: [0, 1], default: 0 })
+  /* 角色状态（0 禁用，1 正常） */
+  @Column({ type: 'enum', enum: [0, 1], default: 1 })
   status: number
 
   @ManyToMany(() => User, (user) => user.roles)
