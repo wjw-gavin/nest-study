@@ -17,7 +17,7 @@ export class Role extends BaseEntity {
   create_by: string
 
   /* 角色下有多少用户 */
-  @Column()
+  @Column({ default: 0 })
   count: number
 
   /* 角色状态（0 禁用，1 正常） */

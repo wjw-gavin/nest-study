@@ -24,8 +24,6 @@ export class RoleController {
 
   @Post()
   async create(@Body() createRoleDto: CreateRoleDto, @UserInfo() user: User) {
-    console.log(user)
-
     createRoleDto.create_by = user.name
     return await this.roleService.create(createRoleDto)
   }

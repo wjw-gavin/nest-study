@@ -38,13 +38,13 @@ export class RoleService {
       where,
       skip: reqRoleListDto.skip,
       take: reqRoleListDto.take,
-      order: { create_time: 'DESC' },
-      select: ['id', 'create_time', 'status', 'desc']
+      order: { create_time: 'DESC' }
+      // select: ['id', 'name', 'status', 'desc', 'create_time', 'update_time'] // 指定返回字段
     })
 
     const data = roles.map((role) => ({
       ...role,
-      status_display: role.status === 0 ? '启用' : '禁用',
+      status_display: role.status === 1 ? '启用' : '禁用',
       create_time_display: format(role.create_time, 'yyyy-MM-dd HH:mm:ss'),
       update_time_display: format(role.update_time, 'yyyy-MM-dd HH:mm:ss')
     }))
@@ -59,7 +59,8 @@ export class RoleService {
 
   /* 通过 id 更新 */
   async update(id: number, updateRoleDto: UpdateRoleDto) {
-    return await this.roleRepository.update(id, updateRoleDto)
+    await this.roleRepository.update(id, updateRoleDto)
+    return this.findOne(id)
     // return await this.roleRepository
     //   .createQueryBuilder()
     //   .update(UpdateRoleDto)
