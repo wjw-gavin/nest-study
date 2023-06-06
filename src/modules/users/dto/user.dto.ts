@@ -11,5 +11,6 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {}
 export class UserInfoDto {
   readonly id: number
   readonly name: string
+  readonly sex: string
   readonly mobile: string
 }

@@ -10,6 +10,7 @@ import {
 import { AuthService } from './auth.service'
 import { User } from '../users/entities/user.entity'
 import { Public } from './decorators/public.decorator'
+import { UserInfoDto } from '../users/dto/user.dto'
 
 @Controller('auth')
 export class AuthController {
@@ -28,7 +29,7 @@ export class AuthController {
 
   @Get('profile')
   @UseInterceptors(ClassSerializerInterceptor)
-  async getProfile(@Request() req: { user: User }) {
+  async getProfile(@Request() req: { user: UserInfoDto }) {
     // req.user 是在身份验证中设置的用户对象，它通常包含有关已认证用户的信息
     return req.user
   }

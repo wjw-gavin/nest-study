@@ -21,8 +21,15 @@ export class AuthService {
       throw new BadRequestException('密码错误！')
     }
 
+    const payload = {
+      id: user.id,
+      name: user.name,
+      sex: user.sex,
+      mobile: user.mobile
+    }
+
     return {
-      access_token: this.jwtService.sign(user)
+      access_token: this.jwtService.sign(payload)
     }
   }
 
