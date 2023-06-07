@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { FindOptionsWhere, Like, Repository } from 'typeorm'
+import { FindOptionsWhere, In, Like, Repository } from 'typeorm'
 import { CreateRoleDto, UpdateRoleDto, ReqRoleListDto } from './dto/role.dto'
 import { Role } from './entities/role.entity'
 import { format } from 'date-fns'
@@ -55,6 +55,16 @@ export class RoleService {
   /* 通过 id 查询 */
   async findOne(id: number) {
     return this.roleRepository.findOneBy({ id })
+  }
+
+  /* 通过 id 数组查询 */
+  async findListByIds(ids: number[]) {
+    const roles = await this.roleRepository.find({
+      where: {
+        id: In(ids)
+      }
+    })
+    return roles
   }
 
   /* 通过 id 更新 */

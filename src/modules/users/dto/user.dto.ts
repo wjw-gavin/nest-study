@@ -5,7 +5,7 @@ export class CreateUserDto {
   readonly mobile: string
   readonly password: string
   readonly sex: string
-  readonly roleIds: number[]
+  readonly role_ids: number[]
 }
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {}

@@ -26,7 +26,7 @@ export class UsersController {
   }
 
   @Get()
-  async list(@Query(PaginationPipe) reqUserListDto: ReqUserListDto) {
+  async findAll(@Query(PaginationPipe) reqUserListDto: ReqUserListDto) {
     return await this.usersService.list(reqUserListDto)
   }
 

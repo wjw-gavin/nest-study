@@ -1,15 +1,17 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { FindOptionsWhere, Like, Repository } from 'typeorm'
 import { format } from 'date-fns'
-import { CreateUserDto, UpdateUserDto } from './dto/user.dto'
+import { RoleService } from '../role/role.service'
 import { User } from './entities/user.entity'
+import { CreateUserDto, ReqUserListDto, UpdateUserDto } from './dto/user.dto'
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private usersRepository: Repository<User>
+    private usersRepository: Repository<User>,
+    private readonly roleService: RoleService
   ) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -18,14 +20,25 @@ export class UsersService {
       throw new HttpException('用户已存在!', HttpStatus.BAD_REQUEST)
     }
 
-    const newUser = this.usersRepository.create(createUserDto)
+    // 关联用户和角色
+    const roles = await this.roleService.findListByIds(createUserDto.role_ids)
+    const newUser = this.usersRepository.create({
+      ...createUserDto,
+      roles
+    })
     return this.usersRepository.save(newUser)
   }
 
-  async findAll(page: number, pageSize: number) {
+  async list(reqUserListDto: ReqUserListDto) {
+    const where: FindOptionsWhere<User> = {}
+    if (reqUserListDto.name) {
+      where.name = Like(`%${reqUserListDto.name}%`)
+    }
+
     const [users, total] = await this.usersRepository.findAndCount({
-      skip: (page - 1) * pageSize,
-      take: pageSize,
+      where,
+      skip: reqUserListDto.skip,
+      take: reqUserListDto.take,
       order: { create_time: 'DESC' }
     })
 
@@ -44,7 +57,7 @@ export class UsersService {
 
   async findOneByMobile(mobile: string) {
     // 由于密码字段使用了 select: false，这里使用 addSelect 来添加密码字段
-    // 以便查询出的用户信息携带密码字段，用于验证等操作
+    // 以便查询出的用户信息携带密码字段，用于 auth 中 login 验证密码等操作
     return await this.usersRepository
       .createQueryBuilder('user')
       .addSelect('user.password')
