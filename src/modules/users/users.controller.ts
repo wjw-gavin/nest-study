@@ -12,7 +12,8 @@ import {
   ClassSerializerInterceptor
 } from '@nestjs/common'
 import { UsersService } from './users.service'
-import { CreateUserDto, UpdateUserDto } from './dto/user.dto'
+import { CreateUserDto, ReqUserListDto, UpdateUserDto } from './dto/user.dto'
+import { PaginationPipe } from 'src/commons/pipes/pagination.pipe'
 
 @Controller('users')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -25,8 +26,8 @@ export class UsersController {
   }
 
   @Get()
-  async findAll(@Query('page') page = 1, @Query('pageSize') pageSize = 10) {
-    return await this.usersService.findAll(page, pageSize)
+  async list(@Query(PaginationPipe) reqUserListDto: ReqUserListDto) {
+    return await this.usersService.list(reqUserListDto)
   }
 
   @Get(':id')

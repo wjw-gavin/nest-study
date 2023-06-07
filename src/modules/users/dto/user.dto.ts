@@ -1,9 +1,11 @@
 import { PartialType } from '@nestjs/mapped-types'
+import { PaginationDto } from 'src/commons/dto/pagination.dto'
 
 export class CreateUserDto {
   readonly mobile: string
   readonly password: string
   readonly sex: string
+  readonly roleIds: number[]
 }
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {}
@@ -13,4 +15,9 @@ export class UserInfoDto {
   readonly name: string
   readonly sex: string
   readonly mobile: string
+}
+
+/* 分页查询 */
+export class ReqUserListDto extends PaginationDto {
+  name?: string
 }
