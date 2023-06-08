@@ -10,8 +10,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       usernameField: 'mobile',
       secretOrKey: JWT.secret,
-      // jwtFromRequest: ExtractJwt.fromHeader('X-Token')
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
+      // 前端传入 'X-TOKEN'，这里要小写，不然获取不到
+      jwtFromRequest: ExtractJwt.fromHeader('x-token')
+      // jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
     })
   }
 
