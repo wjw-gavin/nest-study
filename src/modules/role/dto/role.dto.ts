@@ -16,6 +16,5 @@ export class UpdateRoleDto extends PartialType(CreateRoleDto) {}
 /* 分页查询 */
 export class ReqRoleListDto extends PaginationDto {
   name?: string
-
   status?: number
 }

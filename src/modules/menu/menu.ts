@@ -1,7 +1,7 @@
 export interface Menu {
   id: string
+  name: string
   path?: string
-  name?: string
   icon?: string
   children?: Menu[]
 }

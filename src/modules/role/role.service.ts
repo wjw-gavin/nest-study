@@ -37,8 +37,8 @@ export class RoleService {
     const [roles, total] = await this.roleRepository.findAndCount({
       where,
       skip: reqRoleListDto.skip,
-      take: reqRoleListDto.take,
-      order: { create_time: 'DESC' }
+      take: reqRoleListDto.take
+      // order: { create_time: 'DESC' }
       // select: ['id', 'name', 'status', 'desc', 'create_time', 'update_time'] // 指定返回字段
     })
 
