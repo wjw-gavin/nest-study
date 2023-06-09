@@ -4,7 +4,7 @@ export class PaginationDto {
 
   /* 每页条数 */
 
-  public pageSize?: number
+  public page_size?: number
 
   /* mysql 忽略条数 */
   public skip: number
