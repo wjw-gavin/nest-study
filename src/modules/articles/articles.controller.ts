@@ -9,9 +9,14 @@ import {
   Req,
   Query
 } from '@nestjs/common'
+import {
+  CreateArticleDto,
+  ReqArticleListDto,
+  UpdateArticleDto
+} from './dto/article.dto'
 import { ArticlesService } from './articles.service'
-import { CreateArticleDto, UpdateArticleDto } from './dto/article.dto'
 import { UserInfoDto } from '../users/dto/user.dto'
+import { PaginationPipe } from 'src/commons/pipes/pagination.pipe'
 
 @Controller('articles')
 export class ArticlesController {
@@ -25,10 +30,9 @@ export class ArticlesController {
   @Get()
   async findAll(
     @Req() req: { user: UserInfoDto },
-    @Query('page') page = 1,
-    @Query('pageSize') pageSize = 10
+    @Query(PaginationPipe) reqArticleListDto: ReqArticleListDto
   ) {
-    return this.articlesService.findAll(req.user, page, pageSize)
+    return this.articlesService.findAll(req.user, reqArticleListDto)
   }
 
   @Get(':id')

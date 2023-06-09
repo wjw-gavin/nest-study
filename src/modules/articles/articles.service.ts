@@ -2,7 +2,11 @@ import { Injectable } from '@nestjs/common'
 import { Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
 import { UserInfoDto } from '../users/dto/user.dto'
-import { CreateArticleDto, UpdateArticleDto } from './dto/article.dto'
+import {
+  CreateArticleDto,
+  ReqArticleListDto,
+  UpdateArticleDto
+} from './dto/article.dto'
 import { Article } from './entities/article.entity'
 
 @Injectable()
@@ -16,10 +20,10 @@ export class ArticlesService {
     return await this.articleRepository.save(createArticleDto)
   }
 
-  async findAll(user: UserInfoDto, page: number, pageSize: number) {
+  async findAll(user: UserInfoDto, reqArticleListDto: ReqArticleListDto) {
     const [articles, total] = await this.articleRepository.findAndCount({
-      skip: (page - 1) * pageSize,
-      take: pageSize,
+      skip: reqArticleListDto.skip,
+      take: reqArticleListDto.take,
       order: { create_time: 'DESC' }
     })
 

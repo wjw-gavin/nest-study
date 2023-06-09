@@ -1,4 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types'
+import { PaginationDto } from 'src/commons/dto/pagination.dto'
 
 export class CreateArticleDto {
   readonly title: string
@@ -8,3 +9,7 @@ export class CreateArticleDto {
 }
 
 export class UpdateArticleDto extends PartialType(CreateArticleDto) {}
+
+export class ReqArticleListDto extends PaginationDto {
+  title?: string
+}
