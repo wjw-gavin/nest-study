@@ -39,11 +39,13 @@ export class UsersService {
       where,
       skip: reqUserListDto.skip,
       take: reqUserListDto.take,
-      order: { create_time: 'DESC' }
+      order: { create_time: 'DESC' },
+      relations: ['roles']
     })
 
     const data = users.map((user) => ({
       ...user,
+      roles: user.roles.map((role) => role.name).join(),
       create_time_display: format(user.create_time, 'yyyy-MM-dd HH:mm:ss'),
       update_time_display: format(user.update_time, 'yyyy-MM-dd HH:mm:ss')
     }))
@@ -66,8 +68,16 @@ export class UsersService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    await this.usersRepository.update(id, updateUserDto)
-    return this.findOne(id)
+    const user = await this.findOne(id)
+    const roles = await this.roleService.findListByIds(updateUserDto.role_ids)
+
+    const updateUser = {
+      ...user,
+      roles,
+      ...updateUserDto
+    }
+
+    return await this.usersRepository.save(updateUser)
   }
 
   async remove(id: number) {
