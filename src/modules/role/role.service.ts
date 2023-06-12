@@ -37,17 +37,22 @@ export class RoleService {
     const [roles, total] = await this.roleRepository.findAndCount({
       where,
       skip: reqRoleListDto.skip,
-      take: reqRoleListDto.take
-      // order: { create_time: 'DESC' }
+      take: reqRoleListDto.take,
+      relations: ['users']
       // select: ['id', 'name', 'status', 'desc', 'create_time', 'update_time'] // 指定返回字段
     })
 
-    const data = roles.map((role) => ({
-      ...role,
-      status_display: role.status === 1 ? '启用' : '禁用',
-      create_time_display: format(role.create_time, 'yyyy-MM-dd HH:mm:ss'),
-      update_time_display: format(role.update_time, 'yyyy-MM-dd HH:mm:ss')
-    }))
+    const data = roles.map((role) => {
+      const count = role.users.length
+      delete role.users
+      return {
+        ...role,
+        count,
+        status_display: role.status === 1 ? '启用' : '禁用',
+        create_time_display: format(role.create_time, 'yyyy-MM-dd HH:mm:ss'),
+        update_time_display: format(role.update_time, 'yyyy-MM-dd HH:mm:ss')
+      }
+    })
 
     return { total, data }
   }
