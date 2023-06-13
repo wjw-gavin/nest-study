@@ -12,4 +12,5 @@ export class UpdateArticleDto extends PartialType(CreateArticleDto) {}
 
 export class ReqArticleListDto extends PaginationDto {
   title?: string
+  author_id: number
 }

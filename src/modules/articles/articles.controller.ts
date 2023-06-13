@@ -23,16 +23,16 @@ export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) {}
 
   @Post()
-  create(@Body() createArticleDto: CreateArticleDto) {
-    return this.articlesService.create(createArticleDto)
+  create(
+    @Req() req: { user: UserInfoDto },
+    @Body() createArticleDto: CreateArticleDto
+  ) {
+    return this.articlesService.create(req.user, createArticleDto)
   }
 
   @Get()
-  async findAll(
-    @Req() req: { user: UserInfoDto },
-    @Query(PaginationPipe) reqArticleListDto: ReqArticleListDto
-  ) {
-    return this.articlesService.findAll(req.user, reqArticleListDto)
+  async findAll(@Query(PaginationPipe) reqArticleListDto: ReqArticleListDto) {
+    return this.articlesService.findAll(reqArticleListDto)
   }
 
   @Get(':id')
