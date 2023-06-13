@@ -20,4 +20,5 @@ export class UserInfoDto {
 /* 分页查询 */
 export class ReqUserListDto extends PaginationDto {
   name?: string
+  mobile?: string
 }

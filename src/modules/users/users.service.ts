@@ -34,6 +34,9 @@ export class UsersService {
     if (reqUserListDto.name) {
       where.name = Like(`%${reqUserListDto.name}%`)
     }
+    if (reqUserListDto.mobile) {
+      where.mobile = Like(`%${reqUserListDto.mobile}%`)
+    }
 
     const [users, total] = await this.usersRepository.findAndCount({
       where,
@@ -54,7 +57,7 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    return this.usersRepository.findOneBy({ id })
+    return await this.usersRepository.findOneBy({ id })
   }
 
   async findOneByMobile(mobile: string) {
