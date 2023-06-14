@@ -48,4 +48,9 @@ export class UsersController {
     await this.usersService.remove(id)
     return []
   }
+
+  @Get('autocomplete/options')
+  async getAutocompleteOptions(@Query('keyword') keyword: string) {
+    return await this.usersService.getAutocompleteOptions(keyword)
+  }
 }
