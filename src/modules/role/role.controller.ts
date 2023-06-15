@@ -16,6 +16,7 @@ import { PaginationPipe } from 'src/commons/pipes/pagination.pipe'
 import { RoleService } from './role.service'
 import { CreateRoleDto, ReqRoleListDto, UpdateRoleDto } from './dto/role.dto'
 import { User } from '../users/entities/user.entity'
+import { STATUS_OPTIONS } from './role.constant'
 
 @Controller('role')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -49,5 +50,10 @@ export class RoleController {
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number) {
     return await this.roleService.remove(id)
+  }
+
+  @Get('default/options')
+  async getAutocompleteOptions() {
+    return STATUS_OPTIONS
   }
 }
