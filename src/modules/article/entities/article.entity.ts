@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, JoinColumn } from 'typeorm'
 import { BaseEntity } from 'src/commons/entities/base-entity'
-import { User } from 'src/modules/users/entities/user.entity'
+import { User } from 'src/modules/user/entities/user.entity'
 
 // @Entity('article')
 @Entity()

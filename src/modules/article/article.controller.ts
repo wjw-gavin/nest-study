@@ -15,7 +15,7 @@ import {
   UpdateArticleDto
 } from './dto/article.dto'
 import { ArticleService } from './article.service'
-import { UserInfoDto } from '../users/dto/user.dto'
+import { UserInfoDto } from '../user/dto/user.dto'
 import { PaginationPipe } from 'src/commons/pipes/pagination.pipe'
 
 @Controller('article')

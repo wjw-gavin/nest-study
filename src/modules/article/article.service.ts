@@ -1,26 +1,26 @@
 import { Injectable } from '@nestjs/common'
 import { FindOptionsWhere, Like, Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
-import { UserInfoDto } from '../users/dto/user.dto'
+import { format } from 'date-fns'
+import { UserInfoDto } from '../user/dto/user.dto'
 import {
   CreateArticleDto,
   ReqArticleListDto,
   UpdateArticleDto
 } from './dto/article.dto'
 import { Article } from './entities/article.entity'
-import { format } from 'date-fns'
-import { UsersService } from '../users/users.service'
+import { UserService } from '../user/user.service'
 
 @Injectable()
 export class ArticleService {
   constructor(
     @InjectRepository(Article)
     private articleRepository: Repository<Article>,
-    private readonly usersService: UsersService
+    private readonly userService: UserService
   ) {}
 
   async create(user: UserInfoDto, createArticleDto: CreateArticleDto) {
-    const author = await this.usersService.findOne(user.id)
+    const author = await this.userService.findOne(user.id)
     const newArticle = this.articleRepository.create({
       ...createArticleDto,
       author

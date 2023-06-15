@@ -15,7 +15,7 @@ import { UserInfo } from 'src/commons/decorators/user.decorator'
 import { PaginationPipe } from 'src/commons/pipes/pagination.pipe'
 import { RoleService } from './role.service'
 import { CreateRoleDto, ReqRoleListDto, UpdateRoleDto } from './dto/role.dto'
-import { User } from '../users/entities/user.entity'
+import { User } from '../user/entities/user.entity'
 import { STATUS_OPTIONS } from './role.constant'
 
 @Controller('role')

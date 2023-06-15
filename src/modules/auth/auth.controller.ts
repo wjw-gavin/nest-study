@@ -8,9 +8,9 @@ import {
   UseInterceptors
 } from '@nestjs/common'
 import { AuthService } from './auth.service'
-import { User } from '../users/entities/user.entity'
+import { User } from '../user/entities/user.entity'
 import { Public } from './decorators/public.decorator'
-import { UserInfoDto } from '../users/dto/user.dto'
+import { UserInfoDto } from '../user/dto/user.dto'
 
 @Controller('auth')
 export class AuthController {

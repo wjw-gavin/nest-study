@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { DBModule } from './db/db.module'
 import { AuthModule } from './modules/auth/auth.module'
-import { UsersModule } from './modules/users/users.module'
+import { UserModule } from './modules/user/user.module'
 import { ArticleModule } from './modules/article/article.module'
 import { RoleModule } from './modules/role/role.module'
 import { MenuModule } from './modules/menu/menu.module'
@@ -9,11 +9,11 @@ import { MenuModule } from './modules/menu/menu.module'
 @Module({
   imports: [
     DBModule,
+    MenuModule,
     AuthModule,
-    UsersModule,
-    ArticleModule,
+    UserModule,
     RoleModule,
-    MenuModule
+    ArticleModule
   ],
   controllers: [],
   providers: []

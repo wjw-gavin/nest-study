@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types'
 import { PaginationDto } from 'src/commons/dto/pagination.dto'
-import { User } from 'src/modules/users/entities/user.entity'
+import { User } from 'src/modules/user/entities/user.entity'
 
 export class CreateRoleDto {
   readonly name: string
