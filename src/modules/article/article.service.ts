@@ -12,7 +12,7 @@ import { format } from 'date-fns'
 import { UsersService } from '../users/users.service'
 
 @Injectable()
-export class ArticlesService {
+export class ArticleService {
   constructor(
     @InjectRepository(Article)
     private articleRepository: Repository<Article>,

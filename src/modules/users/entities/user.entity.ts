@@ -9,7 +9,7 @@ import {
 import * as bcrypt from 'bcryptjs'
 import { Exclude } from 'class-transformer'
 import { BaseEntity } from 'src/commons/entities/base-entity'
-import { Article } from '../../articles/entities/article.entity'
+import { Article } from '../../article/entities/article.entity'
 import { Role } from 'src/modules/role/entities/role.entity'
 
 @Entity()
