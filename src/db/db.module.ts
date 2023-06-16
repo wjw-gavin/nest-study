@@ -7,7 +7,7 @@ export const DBModule = TypeOrmModule.forRoot({
   port: dbConfig.port,
   username: dbConfig.username,
   password: dbConfig.password,
-  database: 'test',
+  database: 'study',
   autoLoadEntities: true,
   synchronize: true
 })
