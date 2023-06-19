@@ -88,4 +88,15 @@ export class RoleService {
   async remove(id: number) {
     return await this.roleRepository.delete(id)
   }
+
+  async getDefaultOptions() {
+    const roles = await this.roleRepository.find()
+
+    return roles.map((role) => {
+      return {
+        id: role.id,
+        name: `${role.name}`
+      }
+    })
+  }
 }
