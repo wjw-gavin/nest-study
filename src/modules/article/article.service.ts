@@ -61,7 +61,8 @@ export class ArticleService {
       return {
         ...article,
         author,
-        create_time_display: format(article.create_time, 'yyyy-MM-dd HH:mm:ss')
+        create_time_display: format(article.create_time, 'yyyy-MM-dd HH:mm:ss'),
+        update_time_display: format(article.update_time, 'yyyy-MM-dd HH:mm:ss')
       }
     })
 
