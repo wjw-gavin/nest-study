@@ -1,11 +1,11 @@
 import {
-  Controller,
-  Post,
   Get,
+  Post,
   Body,
   Request,
-  ClassSerializerInterceptor,
-  UseInterceptors
+  Controller,
+  UseInterceptors,
+  ClassSerializerInterceptor
 } from '@nestjs/common'
 import { AuthService } from './auth.service'
 import { User } from '../user/entities/user.entity'
