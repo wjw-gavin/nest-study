@@ -10,7 +10,7 @@ import { CreateUserDto, ReqUserListDto, UpdateUserDto } from './dto/user.dto'
 export class UserService {
   constructor(
     @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    private userRepository: Repository<User>,
     private readonly roleService: RoleService
   ) {}
 
@@ -22,11 +22,11 @@ export class UserService {
 
     // 关联用户和角色
     const roles = await this.roleService.findListByIds(createUserDto.role_ids)
-    const newUser = this.usersRepository.create({
+    const newUser = this.userRepository.create({
       ...createUserDto,
       roles
     })
-    return this.usersRepository.save(newUser)
+    return this.userRepository.save(newUser)
   }
 
   async list(reqUserListDto: ReqUserListDto) {
@@ -38,7 +38,7 @@ export class UserService {
       where.mobile = Like(`%${reqUserListDto.mobile}%`)
     }
 
-    const [users, total] = await this.usersRepository.findAndCount({
+    const [users, total] = await this.userRepository.findAndCount({
       where,
       skip: reqUserListDto.skip,
       take: reqUserListDto.take,
@@ -57,13 +57,21 @@ export class UserService {
   }
 
   async findOne(id: number) {
-    return await this.usersRepository.findOneBy({ id })
+    const user = await this.userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.roles', 'role')
+      .where('user.id = :id', { id: id })
+      .getOne()
+
+    const roleIds = user.roles.map((role) => role.id)
+    delete user.roles
+    return { ...user, role_ids: roleIds }
   }
 
   async findOneByMobile(mobile: string) {
     // 由于密码字段使用了 select: false，这里使用 addSelect 来添加密码字段
     // 以便查询出的用户信息携带密码字段，用于 auth 中 login 验证密码等操作
-    return await this.usersRepository
+    return await this.userRepository
       .createQueryBuilder('user')
       .addSelect('user.password')
       .where('user.mobile = :mobile', { mobile })
@@ -80,15 +88,15 @@ export class UserService {
       ...updateUserDto
     }
 
-    return await this.usersRepository.save(updateUser)
+    return await this.userRepository.save(updateUser)
   }
 
   async remove(id: number) {
-    return await this.usersRepository.delete(id)
+    return await this.userRepository.delete(id)
   }
 
   async getAutocompleteOptions(keyword: string) {
-    const users = await this.usersRepository.find({
+    const users = await this.userRepository.find({
       where: {
         name: Like(`%${keyword}%`)
       }
