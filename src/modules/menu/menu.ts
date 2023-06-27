@@ -28,7 +28,7 @@ export const menus: Menu[] = [
   {
     id: 'system',
     name: '系统管理',
-    icon: 'Management',
+    icon: 'Platform',
     children: [
       {
         id: 'user',
