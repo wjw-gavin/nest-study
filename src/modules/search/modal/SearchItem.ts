@@ -2,7 +2,7 @@
 import searchItems from 'src/resources/searchItems'
 import { SearchCondition } from './searchCondition'
 import { SearchItemConfigDto } from '../dto/search.dto'
-import { ClassFactory } from '../items/itemsUtil'
+import { itemsUtil } from '../items/itemsUtil'
 import { transformStringToClassName } from 'src/commons/utils'
 
 export class SearchItem {
@@ -33,8 +33,8 @@ export class SearchItem {
 
   static instance(searchItemId: string, userId: number): SearchItem {
     const className = transformStringToClassName(searchItemId)
-    const factory = new ClassFactory(className)
-    return factory.instantiateDynamicClass(searchItemId, userId)
+    const item = new itemsUtil(className)
+    return item.instantiateDynamicClass(searchItemId, userId)
   }
 
   public getConfig(includeOptions = true) {
