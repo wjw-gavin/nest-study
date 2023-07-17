@@ -6,8 +6,8 @@ export class SearchCondition {
 
   private condition: TObject
 
-  static instance(conditionJson: string) {
-    const condition = JSON.parse(conditionJson) || {}
+  static instance(conditionJson?: string) {
+    const condition = conditionJson ? JSON.parse(conditionJson) : {}
     return new SearchCondition(condition)
   }
 

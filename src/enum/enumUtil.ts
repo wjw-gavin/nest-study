@@ -9,16 +9,15 @@ export class EnumUtil {
     languageKeyPrefix: string
   ) {
     const displayOptions: SearchItemOption[] = []
-    console.log(baseData[languageKeyPrefix + 'enable'])
+
+    // TODO: console.log(global[languageFileName])
 
     for (const key of constants) {
       displayOptions.push({
         key: key,
-        value: languageFileName[languageKeyPrefix + key]
-        // value: __(languageFileName + '.' + languageKeyPrefix + oneConstant)
+        value: baseData[languageKeyPrefix + key]
       })
     }
-    console.log(displayOptions)
 
     return displayOptions
   }
