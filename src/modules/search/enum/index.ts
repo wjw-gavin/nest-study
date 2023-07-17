@@ -1,9 +1,11 @@
-import { ArticleNameText } from './article.name.text'
-import { RoleNameText } from './role.name.text'
+import { UserName } from './user.name'
 import { RoleStatus } from './role.status'
+import { RoleNameText } from './role.name.text'
+import { ArticleNameText } from './article.name.text'
 
 export default {
-  RoleNameText,
+  UserName,
   RoleStatus,
+  RoleNameText,
   ArticleNameText
 }
