@@ -9,14 +9,14 @@ export class SearchItem {
   public static readonly OPTION_KEY = 'key'
   public static readonly OPTION_VALUE = 'value'
 
-  protected static TYPE_TEXT = 'text'
+  protected static readonly TYPE_TEXT = 'text'
   protected static readonly TYPE_DATE = 'date'
   protected static readonly TYPE_TIME = 'time'
   protected static readonly TYPE_SELECT = 'select'
   protected static readonly TYPE_COMPLEX = 'complex'
   protected static readonly TYPE_DATE_RANGE = 'date_range'
   protected static readonly TYPE_TIME_RANGE = 'time_range'
-  protected static readonly TYPE_AUTO_COMPLETE = 'auto_complete'
+  protected static readonly TYPE_AUTO_COMPLETE = 'autocomplete'
 
   protected id: string
   protected type: string
@@ -74,26 +74,34 @@ export class SearchItem {
     return []
   }
 
-  public async getAutoComplete(
-    _keyword: string,
-    _searchCondition?: SearchCondition
-  ): Promise<any[]> {
-    return []
+  // public async getAutoComplete(
+  //   _keyword: string,
+  //   _searchCondition?: SearchCondition
+  // ): Promise<any[]> {
+  //   return []
+  // }
+
+  public getDisplayName() {
+    const name = searchItems[this.id]
+    if (name) {
+      return name
+    }
+    throw new Error('Search item missing name config')
   }
 
-  public getDisplayName(): string {
-    return searchItems[this.id]
+  protected getDisplayHint() {
+    const hint = searchItems[`hint_${this.id}`]
+    if (hint) {
+      return hint
+    }
+    throw new Error('Search item missing hint config')
   }
 
-  protected getDisplayHint(): string {
-    return searchItems[`hint_${this.id}`]
-  }
-
-  protected getPriorItemId(): string {
+  protected getPriorItemId() {
     return this.priorItemId || ''
   }
 
-  private setPriorItemId(priorItemId: string): void {
+  private setPriorItemId(priorItemId: string) {
     this.priorItemId = priorItemId
   }
 }
