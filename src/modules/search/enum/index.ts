@@ -1,7 +1,9 @@
+import { ArticleNameText } from './article.name.text'
 import { RoleNameText } from './role.name.text'
 import { RoleStatus } from './role.status'
 
-export const allClasses = {
+export default {
   RoleNameText,
-  RoleStatus
+  RoleStatus,
+  ArticleNameText
 }

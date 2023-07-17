@@ -1,6 +1,6 @@
-import { allClasses } from '.'
+import searchItemsClasses from '.'
 
-export class itemsUtil {
+export class ItemsUtil {
   private className: string
 
   constructor(className: string) {
@@ -8,7 +8,7 @@ export class itemsUtil {
   }
 
   instantiateDynamicClass(id: string, userId: number) {
-    const DynamicClass = allClasses[this.className]
+    const DynamicClass = searchItemsClasses[this.className]
 
     if (!DynamicClass) {
       throw new Error(`${this.className} is not a valid search item id.`)

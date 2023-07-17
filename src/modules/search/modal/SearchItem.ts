@@ -2,7 +2,7 @@
 import searchItems from 'src/resources/searchItems'
 import { SearchCondition } from './searchCondition'
 import { SearchItemConfigDto } from '../dto/search.dto'
-import { itemsUtil } from '../items/itemsUtil'
+import { ItemsUtil } from '../enum/itemsUtil'
 import { transformStringToClassName } from 'src/commons/utils'
 
 export class SearchItem {
@@ -26,14 +26,14 @@ export class SearchItem {
 
   private priorItemId: string
 
-  constructor(searchItemId: string, userId: number) {
+  constructor(searchItemId?: string, userId?: number) {
     this.id = searchItemId
     this.userId = userId
   }
 
   static instance(searchItemId: string, userId: number): SearchItem {
     const className = transformStringToClassName(searchItemId)
-    const item = new itemsUtil(className)
+    const item = new ItemsUtil(className)
     return item.instantiateDynamicClass(searchItemId, userId)
   }
 
@@ -74,10 +74,10 @@ export class SearchItem {
     return []
   }
 
-  public getAutoComplete(
+  public async getAutoComplete(
     _keyword: string,
-    _searchCondition: SearchCondition
-  ): any[] {
+    _searchCondition?: SearchCondition
+  ): Promise<any[]> {
     return []
   }
 
