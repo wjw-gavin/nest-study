@@ -53,6 +53,6 @@ export class RoleController {
 
   @Get('default/options')
   async getDefaultOptions() {
-    return await this.roleService.getDefaultOptions()
+    return await this.roleService.getOptions()
   }
 }
