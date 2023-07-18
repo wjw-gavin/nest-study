@@ -51,6 +51,6 @@ export class UserController {
 
   @Get('autocomplete/options')
   async getAutocompleteOptions(@Query('keyword') keyword: string) {
-    return await this.userService.getAutocompleteOptions(keyword)
+    return await this.userService.getAutoComplete(keyword)
   }
 }

@@ -95,7 +95,7 @@ export class UserService {
     return await this.userRepository.delete(id)
   }
 
-  public async getAutocompleteOptions(keyword: string) {
+  public async getAutoComplete(keyword: string) {
     const users = await this.userRepository.find({
       where: {
         name: Like(`%${keyword}%`)
