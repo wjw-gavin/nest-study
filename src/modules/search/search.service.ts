@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common'
 import { ModuleRef } from '@nestjs/core'
-// import { SearchItem } from './modal/searchItem'
-// import { SearchCondition } from './modal/searchCondition'
 import { SearchItemConfig } from './modal/searchItemConfig'
 import services from 'src/shared/services'
 
@@ -20,11 +18,6 @@ export class SearchService {
   }
 
   async getOptions(itemId: string) {
-    // const item = SearchItem.instance(itemId, userId)
-    // const searchCondition = SearchCondition.instance(condition || '')
-    // const options = item.getOptions(searchCondition)
-    // return options
-
     const service = this.moduleRef.get(services[itemId], {
       strict: false
     })
@@ -32,14 +25,10 @@ export class SearchService {
   }
 
   async getAutoComplete(itemId: string, keyword = '') {
-    // const item = SearchItem.instance(itemId, userId)
-    // const searchCondition = SearchCondition.instance('')
-    // const autoCompleteOptions = item.getAutoComplete(keyword, searchCondition)
-    // return autoCompleteOptions
     const serviceName = this.getServiceName(itemId)
     const service = this.moduleRef.get(services[serviceName], {
       strict: false
     })
-    return await service.getAutocompleteOptions(keyword)
+    return await service.getAutoComplete(keyword)
   }
 }
