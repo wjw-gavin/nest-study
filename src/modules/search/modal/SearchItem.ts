@@ -16,7 +16,7 @@ export class SearchItem {
   protected static readonly TYPE_COMPLEX = 'complex'
   protected static readonly TYPE_DATE_RANGE = 'date_range'
   protected static readonly TYPE_TIME_RANGE = 'time_range'
-  protected static readonly TYPE_AUTO_COMPLETE = 'autocomplete'
+  protected static readonly TYPE_AUTO_COMPLETE = 'auto_complete'
 
   protected id: string
   protected type: string

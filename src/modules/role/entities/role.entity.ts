@@ -17,8 +17,8 @@ export class Role extends BaseEntity {
   create_by: string
 
   /* 角色状态（0 禁用，1 正常） */
-  @Column({ type: 'enum', enum: [0, 1], default: 1 })
-  status: number
+  @Column({ type: 'enum', enum: ['enable', 'disabled'], default: 'enable' })
+  status: string
 
   @ManyToMany(() => User, (user) => user.roles)
   users: User[]

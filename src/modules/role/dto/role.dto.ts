@@ -7,7 +7,7 @@ export class CreateRoleDto {
   readonly desc: string
   readonly count: number
   readonly users: User[]
-  readonly status: number
+  readonly status: string
   public create_by: string
 }
 
@@ -16,5 +16,5 @@ export class UpdateRoleDto extends PartialType(CreateRoleDto) {}
 /* 分页查询 */
 export class ReqRoleListDto extends PaginationDto {
   name?: string
-  status?: number
+  role_status?: string
 }

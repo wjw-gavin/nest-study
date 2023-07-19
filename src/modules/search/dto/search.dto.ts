@@ -9,6 +9,6 @@ export class SearchItemConfigDto {
   type?: string
   hint?: string
   options?: SearchItemOption[]
-  multi_select?: boolean
   children?: SearchItemConfigDto[]
+  multi_select?: boolean
 }

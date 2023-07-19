@@ -30,8 +30,8 @@ export class RoleService {
     if (reqRoleListDto.name) {
       where.name = Like(`%${reqRoleListDto.name}%`)
     }
-    if (reqRoleListDto.status) {
-      where.status = reqRoleListDto.status
+    if (reqRoleListDto.role_status) {
+      where.status = reqRoleListDto.role_status
     }
     // TODO: 搜索时间范围可以使用 Between
     const [roles, total] = await this.roleRepository.findAndCount({
@@ -48,7 +48,7 @@ export class RoleService {
       return {
         ...role,
         count,
-        status_display: role.status === 1 ? '启用' : '禁用',
+        status_display: role.status === 'enable' ? '已启用' : '已禁用',
         create_time_display: format(role.create_time, 'yyyy-MM-dd HH:mm:ss'),
         update_time_display: format(role.update_time, 'yyyy-MM-dd HH:mm:ss')
       }
