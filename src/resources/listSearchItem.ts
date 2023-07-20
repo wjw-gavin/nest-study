@@ -7,5 +7,6 @@ export const listSearchItems = {
   article_name_text: 'article_name_text',
 
   // 用户
-  user_name: 'user_name'
+  user_name_text: 'user_name_text',
+  user_mobile: 'user_mobile'
 }

@@ -31,11 +31,11 @@ export class UserService {
 
   async list(reqUserListDto: ReqUserListDto) {
     const where: FindOptionsWhere<User> = {}
-    if (reqUserListDto.name) {
-      where.name = Like(`%${reqUserListDto.name}%`)
+    if (reqUserListDto.user_name_text) {
+      where.name = Like(`%${reqUserListDto.user_name_text}%`)
     }
-    if (reqUserListDto.mobile) {
-      where.mobile = Like(`%${reqUserListDto.mobile}%`)
+    if (reqUserListDto.user_mobile) {
+      where.mobile = Like(`%${reqUserListDto.user_mobile}%`)
     }
 
     const [users, total] = await this.userRepository.findAndCount({
@@ -95,17 +95,17 @@ export class UserService {
     return await this.userRepository.delete(id)
   }
 
-  public async getAutoComplete(keyword: string) {
+  async getUserOptionsByMobile(keyword: string) {
     const users = await this.userRepository.find({
       where: {
-        name: Like(`%${keyword}%`)
+        mobile: Like(`%${keyword}%`)
       }
     })
 
     return users.map((user) => {
       return {
-        id: user.id,
-        name: `${user.name}（${user.mobile}）`
+        key: user.id,
+        value: `${user.name}（${user.mobile}）`
       }
     })
   }
