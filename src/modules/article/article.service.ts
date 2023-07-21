@@ -31,8 +31,8 @@ export class ArticleService {
 
   async findAll(reqArticleListDto: ReqArticleListDto) {
     const where: FindOptionsWhere<Article> = {}
-    if (reqArticleListDto.title) {
-      where.title = Like(`%${reqArticleListDto.title}%`)
+    if (reqArticleListDto.article_name_text) {
+      where.title = Like(`%${reqArticleListDto.article_name_text}%`)
     }
 
     const queryBuilde = this.articleRepository
