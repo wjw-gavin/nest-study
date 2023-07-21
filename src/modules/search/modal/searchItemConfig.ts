@@ -1,16 +1,13 @@
 import { listSearchItems } from 'src/resources/listSearchItem'
 import { SearchItemConfigDto } from '../dto/search.dto'
-import { SearchItem } from './SearchItem'
-
+import { SearchItem } from './searchItem'
 export class SearchItemConfig {
   private id: string
   private userId: number
 
   private static readonly CONFIG = {
     user: [listSearchItems.user_name_text, listSearchItems.user_mobile],
-
     role: [listSearchItems.role_name_text, listSearchItems.role_status],
-
     article: [listSearchItems.article_name_text]
   }
 
