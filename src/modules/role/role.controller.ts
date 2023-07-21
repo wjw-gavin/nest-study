@@ -50,9 +50,4 @@ export class RoleController {
   async remove(@Param('id', ParseIntPipe) id: number) {
     return await this.roleService.remove(id)
   }
-
-  @Get('default/options')
-  async getDefaultOptions() {
-    return await this.roleService.getOptions()
-  }
 }

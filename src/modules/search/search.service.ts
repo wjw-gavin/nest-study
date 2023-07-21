@@ -20,7 +20,8 @@ export class SearchService {
 
   async getOptions(itemId: string) {
     const item = SearchItem.instance(itemId)
-    const service = this.moduleRef.get(services[itemId], {
+    const serviceName = this.getServiceName(itemId)
+    const service = this.moduleRef.get(services[serviceName], {
       strict: false
     })
     return await service[item.function_name]()

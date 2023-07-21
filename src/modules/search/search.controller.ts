@@ -14,8 +14,8 @@ export class SearchController {
     return this.searchService.getConfig(configId, req.user.id)
   }
 
-  @Get('options/:itemId')
-  getOptions(@Param('configId') itemId: string) {
+  @Get('option/:itemId')
+  getOptions(@Param('itemId') itemId: string) {
     return this.searchService.getOptions(itemId)
   }
 
