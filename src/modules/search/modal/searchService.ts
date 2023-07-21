@@ -2,7 +2,7 @@
 import searchItems from 'src/resources/searchItems'
 import { SearchCondition } from './searchCondition'
 import { SearchItemConfigDto } from '../dto/search.dto'
-import { ItemsUtil } from '../enum/itemsUtil'
+import { ItemsUtil } from '../items/itemsUtil'
 import { transformStringToClassName } from 'src/commons/utils'
 
 export class SearchItem {

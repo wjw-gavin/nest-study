@@ -1,5 +1,5 @@
 import { SearchItem } from '../modal/searchItem'
-import { EnumUtil } from './enumUtil'
+import { EnumUtil } from './itemsUtil'
 
 export class RoleStatus extends SearchItem {
   protected type = RoleStatus.TYPE_SELECT
