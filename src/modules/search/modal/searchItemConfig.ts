@@ -11,7 +11,7 @@ export class SearchItemConfig {
 
     role: [listSearchItems.role_name_text, listSearchItems.role_status],
 
-    article: [listSearchItems.article_name_text, listSearchItems.user_name_text]
+    article: [listSearchItems.article_name_text]
   }
 
   private constructor(searchItemConfigId: string, userId: number) {
