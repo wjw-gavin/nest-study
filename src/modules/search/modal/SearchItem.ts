@@ -33,7 +33,7 @@ export class SearchItem {
     this.userId = userId
   }
 
-  static instance(searchItemId: string, userId?: number): SearchItem {
+  public static instance(searchItemId: string, userId?: number): SearchItem {
     const className = transformStringToClassName(searchItemId)
     const item = new ItemsUtil(className)
     return item.instantiateDynamicClass(searchItemId, userId)

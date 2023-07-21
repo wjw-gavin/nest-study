@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { ModuleRef } from '@nestjs/core'
 import { SearchItemConfig } from './modal/searchItemConfig'
 import services from 'src/shared/services'
-import { SearchItem } from './modal/searchItem'
+import { SearchItem } from './modal/SearchItem'
 
 @Injectable()
 export class SearchService {

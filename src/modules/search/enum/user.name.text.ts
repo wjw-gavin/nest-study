@@ -1,4 +1,4 @@
-import { SearchItem } from '../modal/SearchItem'
+import { SearchItem } from '../modal/searchItem'
 
 export class UserNameText extends SearchItem {
   protected type = UserNameText.TYPE_TEXT

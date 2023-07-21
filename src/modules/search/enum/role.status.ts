@@ -1,4 +1,4 @@
-import { SearchItem } from '../modal/SearchItem'
+import { SearchItem } from '../modal/searchItem'
 import { EnumUtil } from './enumUtil'
 
 export class RoleStatus extends SearchItem {

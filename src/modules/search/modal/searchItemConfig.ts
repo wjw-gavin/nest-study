@@ -1,6 +1,6 @@
 import { listSearchItems } from 'src/resources/listSearchItem'
 import { SearchItemConfigDto } from '../dto/search.dto'
-import { SearchItem } from './searchItem'
+import { SearchItem } from './SearchItem'
 
 export class SearchItemConfig {
   private id: string
@@ -14,19 +14,19 @@ export class SearchItemConfig {
     article: [listSearchItems.article_name_text]
   }
 
-  private constructor(searchItemConfigId: string, userId: number) {
+  constructor(searchItemConfigId: string, userId: number) {
     this.id = searchItemConfigId
     this.userId = userId
   }
 
-  static instance(searchItemConfigId: string, userId: number) {
+  public static instance(searchItemConfigId: string, userId: number) {
     if (!(searchItemConfigId in SearchItemConfig.CONFIG)) {
       throw new Error(`${searchItemConfigId} 无效`)
     }
     return new SearchItemConfig(searchItemConfigId, userId)
   }
 
-  getConfig() {
+  public getConfig() {
     const config: SearchItemConfigDto[] = []
     SearchItemConfig.CONFIG[this.id].forEach((searchItemId: string) => {
       const item = SearchItem.instance(searchItemId, this.userId)
