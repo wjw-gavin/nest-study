@@ -15,8 +15,7 @@ import { JwtAuthGuard } from './jwt-auth.guard'
     PassportModule,
     JwtModule.register({
       ...JWT,
-      signOptions: { expiresIn: '7d' },
-      global: true
+      signOptions: { expiresIn: '7d' }
     })
   ],
   providers: [
