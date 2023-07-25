@@ -1,4 +1,8 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable
+} from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { FindOptionsWhere, Like, Repository } from 'typeorm'
 import { format } from 'date-fns'
@@ -17,7 +21,7 @@ export class UserService {
   async create(createUserDto: CreateUserDto) {
     const user = await this.findOneByMobile(createUserDto.mobile)
     if (user) {
-      throw new HttpException('用户已存在!', HttpStatus.BAD_REQUEST)
+      throw new BadRequestException('用户已存在!')
     }
 
     // 关联用户和角色
@@ -99,6 +103,10 @@ export class UserService {
   }
 
   async remove(id: number) {
+    // 2 指的是管理员的 id
+    if (id === 2) {
+      throw new ForbiddenException('管理员不允许删除！')
+    }
     return await this.userRepository.delete(id)
   }
 
