@@ -86,17 +86,10 @@ export class UserService {
     const user = await this.findOne(id)
     const roles = await this.roleService.findListByIds(updateUserDto.role_ids)
 
-    const fieldsToUpdate = {}
-    Object.keys(updateUserDto).forEach((key) => {
-      if (updateUserDto[key]) {
-        fieldsToUpdate[key] = updateUserDto[key]
-      }
-    })
-
+    Object.assign(user, updateUserDto)
     const updateUser = {
       ...user,
-      roles,
-      ...fieldsToUpdate
+      roles
     }
 
     return await this.userRepository.save(updateUser)
