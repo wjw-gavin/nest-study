@@ -36,8 +36,6 @@ export class SearchItem {
     const currentClass = await import(`../items/${fileName}`)
     const className = this.getClassBySearchConfigId(searchItemId)
     const item = currentClass[className]
-    console.log(item)
-
     return new item(searchItemId, userId)
   }
 
