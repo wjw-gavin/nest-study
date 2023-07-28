@@ -1,5 +1,5 @@
 export class SearchItemOption {
-  key: string
+  key: string | number
   value: string
 }
 

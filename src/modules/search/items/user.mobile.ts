@@ -1,4 +1,4 @@
-import { SearchItem } from '../modal/searchItem'
+import { SearchItem } from '../model/searchItem'
 
 export class UserMobile extends SearchItem {
   public function_name = 'getUserOptionsByMobile'

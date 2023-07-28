@@ -1,4 +1,4 @@
-import { SearchItem } from '../modal/searchItem'
+import { SearchItem } from '../model/searchItem'
 
 export class RoleOption extends SearchItem {
   public function_name = 'getRoleOptions'

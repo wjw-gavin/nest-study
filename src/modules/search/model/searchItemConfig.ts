@@ -23,11 +23,11 @@ export class SearchItemConfig {
     return new SearchItemConfig(searchItemConfigId, userId)
   }
 
-  public getConfig() {
+  public async getConfig() {
     const config: SearchItemConfigDto[] = []
-    SearchItemConfig.CONFIG[this.id].forEach((searchItemId: string) => {
-      const item = SearchItem.instance(searchItemId, this.userId)
-      config.push(item.getConfig())
+    SearchItemConfig.CONFIG[this.id].forEach(async (searchItemId: string) => {
+      const item = await SearchItem.instance(searchItemId, this.userId)
+      config.push(await item.getConfig())
     })
     return config
   }

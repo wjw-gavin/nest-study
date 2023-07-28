@@ -1,4 +1,4 @@
-import { SearchItem } from '../modal/searchItem'
+import { SearchItem } from '../model/searchItem'
 import { EnumUtil } from './enumUtil'
 
 export class RoleStatus extends SearchItem {
@@ -7,7 +7,7 @@ export class RoleStatus extends SearchItem {
   public ENABLE = 'enable'
   public DISABLED = 'disabled'
 
-  getOptions() {
+  async getOptions() {
     return EnumUtil.getDisplayOptions(
       [this.ENABLE, this.DISABLED],
       'baseData',

@@ -2,8 +2,6 @@
 import searchItems from 'src/resources/searchItems'
 import { SearchCondition } from './searchCondition'
 import { SearchItemConfigDto } from '../dto/search.dto'
-import { ItemsUtil } from '../items/itemsUtil'
-import { transformStringToClassName } from 'src/commons/utils'
 
 export class SearchItem {
   public function_name: string
@@ -33,13 +31,17 @@ export class SearchItem {
     this.userId = userId
   }
 
-  public static instance(searchItemId: string, userId?: number): SearchItem {
-    const className = transformStringToClassName(searchItemId)
-    const item = new ItemsUtil(className)
-    return item.instantiateDynamicClass(searchItemId, userId)
+  static async instance(searchItemId: string, userId?: number) {
+    const fileName = searchItemId.replace(/_/g, '.')
+    const currentClass = await import(`../items/${fileName}`)
+    const className = this.getClassBySearchConfigId(searchItemId)
+    const item = currentClass[className]
+    console.log(item)
+
+    return new item(searchItemId, userId)
   }
 
-  public getConfig(includeOptions = true) {
+  public async getConfig(includeOptions = true) {
     const config: SearchItemConfigDto = {
       id: this.id,
       name: this.getDisplayName(),
@@ -50,7 +52,7 @@ export class SearchItem {
       const childrenItems = []
       let priorItemId = ''
       for (const childItemId of this.children) {
-        const childItem = SearchItem.instance(childItemId, this.userId)
+        const childItem = await SearchItem.instance(childItemId, this.userId)
         if (priorItemId !== '') {
           childItem.setPriorItemId(priorItemId)
         }
@@ -64,22 +66,23 @@ export class SearchItem {
         config.multi_select = this.multiSelect
         if (includeOptions) {
           config.options = []
-          config.options = this.getOptions()
+          config.options = await this.getOptions(SearchCondition.instance(''))
         }
       }
     }
-
     return config
   }
 
-  public getOptions(_searchCondition?: SearchCondition): any[] {
+  public async getOptions(
+    _searchCondition?: SearchCondition
+  ): Promise<{ key: string | number; value: string }[]> {
     return []
   }
 
   public async getAutoComplete(
     _keyword: string,
     _searchCondition?: SearchCondition
-  ): Promise<any[]> {
+  ) {
     return []
   }
 
@@ -105,5 +108,14 @@ export class SearchItem {
 
   private setPriorItemId(priorItemId: string) {
     this.priorItemId = priorItemId
+  }
+
+  private static getClassBySearchConfigId(configId: string): string {
+    if (!configId) return
+    const words = configId.split('_')
+    const capitalizedWords = words.map(
+      (word) => word.charAt(0).toUpperCase() + word.slice(1)
+    )
+    return capitalizedWords.join('')
   }
 }
