@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import searchItems from 'src/resources/searchItems'
 import { SearchCondition } from './searchCondition'
-import { SearchItemConfigDto } from '../dto/search.dto'
+import { SearchItemConfigDto, SearchItemOption } from '../dto/search.dto'
 
 export class SearchItem {
   public function_name: string
@@ -73,7 +73,7 @@ export class SearchItem {
 
   public async getOptions(
     _searchCondition?: SearchCondition
-  ): Promise<{ key: string | number; value: string }[]> {
+  ): Promise<SearchItemOption[]> {
     return []
   }
 
