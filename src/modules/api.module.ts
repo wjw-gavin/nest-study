@@ -1,4 +1,7 @@
 import { Module } from '@nestjs/common'
+import { APP_GUARD } from '@nestjs/core'
+import { AuthGuard } from './auth/auth.guard'
+import { RolesGuard } from './role/guards/role.guard'
 import { MenuModule } from './menu/menu.module'
 import { AuthModule } from './auth/auth.module'
 import { UserModule } from './user/user.module'
@@ -16,6 +19,15 @@ import { SearchModule } from './search/search.module'
     ArticleModule
   ],
   controllers: [],
-  providers: []
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard
+    }
+  ]
 })
 export class ApiModule {}

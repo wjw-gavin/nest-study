@@ -14,6 +14,7 @@ export class RoleService {
   // 新增
   async create(createRoleDto: CreateRoleDto) {
     const role = await this.findOneByName(createRoleDto.name)
+
     if (role) {
       throw new BadRequestException('角色已存在!')
     }

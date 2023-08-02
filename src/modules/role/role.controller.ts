@@ -16,6 +16,7 @@ import { PaginationPipe } from 'src/commons/pipes/pagination.pipe'
 import { RoleService } from './role.service'
 import { CreateRoleDto, ReqRoleListDto, UpdateRoleDto } from './dto/role.dto'
 import { User } from '../user/entities/user.entity'
+import { Roles } from './decorators/roles.decorator'
 
 @Controller('role')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -47,6 +48,7 @@ export class RoleController {
   }
 
   @Delete(':id')
+  @Roles(1) // 临时使用管理员 id
   async remove(@Param('id', ParseIntPipe) id: number) {
     return await this.roleService.remove(id)
   }
