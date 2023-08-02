@@ -31,7 +31,7 @@ export class UserService {
       roles
     })
 
-    await this.userRepository.save(newUser)
+    return await this.userRepository.save(newUser)
   }
 
   async list(reqUserListDto: ReqUserListDto) {

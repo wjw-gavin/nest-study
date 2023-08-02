@@ -7,6 +7,7 @@ import {
   ManyToMany
 } from 'typeorm'
 import * as bcrypt from 'bcryptjs'
+import { Exclude } from 'class-transformer'
 import { BaseEntity } from 'src/commons/entities/base-entity'
 import { Article } from '../../article/entities/article.entity'
 import { Role } from 'src/modules/role/entities/role.entity'
@@ -22,6 +23,9 @@ export class User extends BaseEntity {
   @Column()
   sex: string
 
+  // Exclude 在返回实体时（创建、更新）忽略此字段
+  @Exclude()
+  // select 在查询时忽略此字段
   @Column({ select: false })
   password: string
 
