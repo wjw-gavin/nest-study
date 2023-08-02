@@ -6,8 +6,8 @@ import {
   UnauthorizedException
 } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import { JWT } from 'src/commons/constants'
-import { IS_PUBLIC_KEY } from './decorators/public.decorator'
+import { JWT } from '../constants'
+import { IS_PUBLIC_KEY } from '../decorators/public.decorator'
 
 @Injectable()
 export class AuthGuard implements CanActivate {

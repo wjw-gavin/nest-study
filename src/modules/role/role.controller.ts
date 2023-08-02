@@ -11,12 +11,12 @@ import {
   UseInterceptors,
   ClassSerializerInterceptor
 } from '@nestjs/common'
+import { Roles } from 'src/commons/decorators/roles.decorator'
 import { UserInfo } from 'src/commons/decorators/user.decorator'
 import { PaginationPipe } from 'src/commons/pipes/pagination.pipe'
 import { RoleService } from './role.service'
 import { CreateRoleDto, ReqRoleListDto, UpdateRoleDto } from './dto/role.dto'
 import { User } from '../user/entities/user.entity'
-import { Roles } from './decorators/roles.decorator'
 
 @Controller('role')
 @UseInterceptors(ClassSerializerInterceptor)

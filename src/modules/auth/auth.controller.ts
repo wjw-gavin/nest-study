@@ -7,9 +7,9 @@ import {
   UseInterceptors,
   ClassSerializerInterceptor
 } from '@nestjs/common'
+import { Public } from 'src/commons/decorators/public.decorator'
 import { AuthService } from './auth.service'
 import { User } from '../user/entities/user.entity'
-import { Public } from './decorators/public.decorator'
 import { UserInfoDto } from '../user/dto/user.dto'
 
 @Controller('auth')
