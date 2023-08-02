@@ -30,7 +30,8 @@ export class UserService {
       ...createUserDto,
       roles
     })
-    return this.userRepository.save(newUser)
+
+    await this.userRepository.save(newUser)
   }
 
   async list(reqUserListDto: ReqUserListDto) {
@@ -74,7 +75,7 @@ export class UserService {
 
   async findOneByMobile(mobile: string) {
     // 由于密码字段使用了 select: false，这里使用 addSelect 来添加密码字段
-    // 以便查询出的用户信息携带密码字段，用于 auth 中 login 验证密码等操作
+    // 用于 auth 中 login 接口验证密码是否相同
     return await this.userRepository
       .createQueryBuilder('user')
       .addSelect('user.password')
@@ -92,7 +93,7 @@ export class UserService {
       roles
     }
 
-    return await this.userRepository.save(updateUser)
+    await this.userRepository.save(updateUser)
   }
 
   async remove(id: number) {
