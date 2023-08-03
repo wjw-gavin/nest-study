@@ -1,6 +1,7 @@
 declare const module: any
 
 import { NestFactory } from '@nestjs/core'
+import * as cookieParser from 'cookie-parser'
 import { AppModule } from './app.module'
 import { URL_PREFIX } from './commons/constants'
 import { HttpExceptionFilter } from './commons/filters/http.exception.filter'
@@ -8,6 +9,8 @@ import { HttpSuccessInterceptor } from './commons/interceptors/http.success.inte
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
+
+  app.use(cookieParser())
 
   app.setGlobalPrefix(URL_PREFIX)
 

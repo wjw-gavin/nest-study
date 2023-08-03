@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module'
 import { RoleModule } from './role/role.module'
 import { ArticleModule } from './article/article.module'
 import { SearchModule } from './search/search.module'
+import { FileModule } from './file/file.module'
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { SearchModule } from './search/search.module'
     UserModule,
     RoleModule,
     SearchModule,
-    ArticleModule
+    ArticleModule,
+    FileModule
   ],
   controllers: [],
   providers: [

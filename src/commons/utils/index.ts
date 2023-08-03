@@ -1,1 +1,2 @@
-export * from './transformStringToClassName'
+export * from './resSendFileByName'
+export * from './verifyCookieTokenAsync'
