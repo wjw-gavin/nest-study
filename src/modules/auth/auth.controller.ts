@@ -31,6 +31,8 @@ export class AuthController {
   @UseInterceptors(ClassSerializerInterceptor)
   async getProfile(@Request() req: { user: UserInfoDto }) {
     // req.user 是在身份验证中设置的用户对象，它通常包含有关已认证用户的信息
-    return req.user
+    // 如果直接使用，当修改用户信息后，无法获取新的，只能重新登录
+    // return req.user
+    return await this.authService.getProfile(req.user.id)
   }
 }

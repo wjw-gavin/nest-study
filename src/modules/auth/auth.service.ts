@@ -33,6 +33,15 @@ export class AuthService {
     }
   }
 
+  async getProfile(id: number) {
+    const user = await this.userService.findOne(id)
+    if (!user) {
+      throw new BadRequestException('用户不存在！')
+    }
+
+    return user
+  }
+
   async logout(user: User) {
     // TODO: jwt 失效
     console.log(user)
