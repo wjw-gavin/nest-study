@@ -1,16 +1,17 @@
 import type { TObject } from 'src/types'
-import baseData from 'src/resources/baseData'
+import baseData from '../resources/baseData'
 import { SearchItemOption } from 'src/modules/search/dto/search.dto'
 
 export class EnumUtil {
   static getDisplayOptions(
     constants: string[],
-    languageFileName: string,
+    resourceFileName: string,
     languageKeyPrefix: string
   ) {
     const displayOptions: SearchItemOption[] = []
 
-    // TODO: console.log(global[languageFileName])
+    // console.log(resourceFileName)
+    // TODO: 实现动态获取指定文件数据源
 
     for (const key of constants) {
       displayOptions.push({

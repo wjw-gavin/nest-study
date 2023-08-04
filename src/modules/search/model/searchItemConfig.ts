@@ -1,4 +1,4 @@
-import { listSearchItems } from 'src/resources/listSearchItem'
+import { listSearchItems } from '../resources/listSearchItem'
 import { SearchItemConfigDto } from '../dto/search.dto'
 import { SearchItem } from './searchItem'
 export class SearchItemConfig {

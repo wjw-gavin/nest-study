@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import searchItems from 'src/resources/searchItems'
+import searchItems from '../resources/searchItems'
 import { SearchCondition } from './searchCondition'
 import { SearchItemConfigDto, SearchItemOption } from '../dto/search.dto'
 
