@@ -9,7 +9,7 @@ import { FileInfo } from './entities/file.entity'
 @Module({
   imports: [
     MulterModule.register({
-      dest: FILE_DIR // 文件保存路径
+      dest: FILE_DIR // files dir
     }),
     TypeOrmModule.forFeature([FileInfo])
   ],
