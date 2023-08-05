@@ -2,11 +2,11 @@ import { PartialType } from '@nestjs/mapped-types'
 import { PaginationDto } from 'src/commons/dto/pagination.dto'
 
 export class CreateUserDto {
+  sex: string
+  avatar: string
   mobile: string
-  readonly sex: string
-  readonly avatar: string
-  readonly password: string
-  readonly role_ids: number[]
+  role_ids: number[]
+  password: string
 }
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {}

@@ -87,6 +87,9 @@ export class UserService {
     const user = await this.findOne(id)
     const roles = await this.roleService.findListByIds(updateUserDto.role_ids)
 
+    // 手机号、密码不允许修改
+    delete updateUserDto.mobile
+    delete updateUserDto.password
     Object.assign(user, updateUserDto)
     const updateUser = {
       ...user,
