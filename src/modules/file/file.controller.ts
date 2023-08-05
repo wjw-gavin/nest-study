@@ -13,6 +13,7 @@ import { FileInterceptor } from '@nestjs/platform-express'
 import { resSendFileByName, verifyCookieTokenAsync } from 'src/commons/utils'
 import { Public } from 'src/commons/decorators/public.decorator'
 import { FileService } from './file.service'
+import { URL_PREFIX } from 'src/commons/constants'
 
 @Controller('file')
 export class FileController {
@@ -27,7 +28,11 @@ export class FileController {
       fileName: file.filename,
       originalName: file.originalname
     }
-    return await this.fileService.saveFile(fileInfo)
+    const result = await this.fileService.saveFile(fileInfo)
+    return {
+      url: `/${URL_PREFIX}/file/${file.filename}`,
+      ...result
+    }
   }
 
   @Public()

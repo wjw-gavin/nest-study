@@ -23,6 +23,9 @@ export class User extends BaseEntity {
   @Column()
   sex: string
 
+  @Column()
+  avatar: string
+
   // Exclude 在返回实体时（创建、更新）忽略此字段
   @Exclude()
   // select 在查询时忽略此字段
