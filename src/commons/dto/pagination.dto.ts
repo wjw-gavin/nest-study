@@ -1,4 +1,4 @@
-export class PaginationDto {
+export abstract class PaginationDto {
   /* 当前页 */
   public page?: number
 
