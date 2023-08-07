@@ -1,9 +1,17 @@
 import { Module } from '@nestjs/common'
-import { DBModule } from './db/db.module'
+import { ConfigModule } from '@nestjs/config'
+import { DBConfigModule } from './config/db.config'
 import { ApiModule } from './modules/api.module'
 
 @Module({
-  imports: [DBModule, ApiModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: [`.env.${process.env.NODE_ENV}`]
+    }),
+    DBConfigModule,
+    ApiModule
+  ],
   controllers: [],
   providers: []
 })
