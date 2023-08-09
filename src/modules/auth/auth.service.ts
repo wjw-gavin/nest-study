@@ -1,14 +1,16 @@
 import { BadRequestException, Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { compareSync } from 'bcryptjs'
-import { User } from '../user/entities/user.entity'
 import { UserService } from '../user/user.service'
+import { RedisService } from 'src/shared/redis/redis.service'
+import { UserInfoDto } from '../user/dto/user.dto'
 
 @Injectable()
 export class AuthService {
   constructor(
+    private readonly jwtService: JwtService,
     private readonly userService: UserService,
-    private readonly jwtService: JwtService
+    private readonly redisService: RedisService
   ) {}
 
   async login(mobile: string, password: string) {
@@ -28,9 +30,12 @@ export class AuthService {
       avatar: user.avatar,
       mobile: user.mobile
     }
+    const token = this.jwtService.sign(payload)
+
+    await this.redisService.set(`${user.id}_${user.mobile}`, token)
 
     return {
-      token: this.jwtService.sign(payload)
+      token: token
     }
   }
 
@@ -43,8 +48,9 @@ export class AuthService {
     return user
   }
 
-  async logout(user: User) {
-    // TODO: jwt 失效
-    console.log(user)
+  async logout(user: UserInfoDto) {
+    await this.redisService.del(`${user.id}_${user.mobile}`)
+
+    return { message: '退出登录' }
   }
 }

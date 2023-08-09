@@ -1,13 +1,12 @@
-import { Module } from '@nestjs/common'
+import { Global, Module } from '@nestjs/common'
 import { CacheModule } from '@nestjs/cache-manager'
-// import { ConfigModule, ConfigService } from '@nestjs/config'
 import { redisStore } from 'cache-manager-redis-yet'
-import { RedisCacheService } from './redis.service'
+import { RedisService } from './redis.service'
 
+@Global()
 @Module({
   imports: [
     CacheModule.registerAsync({
-      isGlobal: true,
       useFactory: async () => {
         const { env } = process
         return {
@@ -15,15 +14,15 @@ import { RedisCacheService } from './redis.service'
             socket: {
               host: env.REDIS_HOST,
               port: +env.REDIS_PORT
-            },
-            password: env.REDIS_PASSWORD,
-            database: +env.REDIS_DB
+            }
+            // password: env.REDIS_PASSWORD,
+            // database: +env.REDIS_DB
           })
         }
       }
     })
   ],
-  providers: [RedisCacheService],
-  exports: [RedisCacheService]
+  providers: [RedisService],
+  exports: [RedisService]
 })
-export class RedisCacheModule {}
+export class RedisModule {}
