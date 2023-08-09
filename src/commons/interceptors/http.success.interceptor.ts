@@ -16,7 +16,7 @@ export class HttpSuccessInterceptor<T>
   implements NestInterceptor<T, Response<T>>
 {
   intercept(
-    context: ExecutionContext,
+    _context: ExecutionContext,
     next: CallHandler<T>
   ): Observable<Response<T>> {
     return next.handle().pipe(

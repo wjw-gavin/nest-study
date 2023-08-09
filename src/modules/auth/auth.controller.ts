@@ -23,7 +23,7 @@ export class AuthController {
   }
 
   @Post('logout')
-  async logout(@Request() req: { user: User }) {
+  async logout(@Request() req: { user: UserInfoDto }) {
     await this.authService.logout(req.user)
   }
 
