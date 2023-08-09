@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { DBConfigModule } from './config/db.config'
 import { ApiModule } from './modules/api.module'
-import { RedisCacheModule } from './shared/redis/redis.mudule'
+import { RedisModule } from './shared/redis/redis.mudule'
 
 @Module({
   imports: [
@@ -10,7 +10,7 @@ import { RedisCacheModule } from './shared/redis/redis.mudule'
       isGlobal: true,
       envFilePath: [`.env.${process.env.NODE_ENV}`]
     }),
-    RedisCacheModule,
+    RedisModule,
     DBConfigModule,
     ApiModule
   ],
