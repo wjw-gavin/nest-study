@@ -89,7 +89,7 @@ export class SearchItem {
     if (name) {
       return name
     }
-    throw new Error(`Search item missing ${this.id} name config`)
+    throw new Error(`${this.id} search item missing name config`)
   }
 
   protected getDisplayHint() {
@@ -97,7 +97,7 @@ export class SearchItem {
     if (hint) {
       return hint
     }
-    throw new Error('Search item missing hint config')
+    throw new Error(`${this.id} search item missing hint config`)
   }
 
   protected getPriorItemId() {
