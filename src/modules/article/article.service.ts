@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { FindOptionsWhere, Like, Repository } from 'typeorm'
-import { format } from 'date-fns'
+import { FindOptionsWhere, Between, Like, Repository } from 'typeorm'
+import { endOfDay, format } from 'date-fns'
 import { UserInfoDto } from '../user/dto/user.dto'
 import {
   CreateArticleDto,
@@ -10,6 +10,7 @@ import {
 } from './dto/article.dto'
 import { Article } from './entities/article.entity'
 import { UserService } from '../user/user.service'
+import { getDateRange } from '../../commons/utils'
 
 @Injectable()
 export class ArticleService {
@@ -33,6 +34,12 @@ export class ArticleService {
     const where: FindOptionsWhere<Article> = {}
     if (reqArticleListDto.article_name_text) {
       where.title = Like(`%${reqArticleListDto.article_name_text}%`)
+    }
+
+    const timeRange = reqArticleListDto.article_create_time
+    if (timeRange) {
+      const betweenDate = getDateRange(timeRange)
+      where.create_time = Between(betweenDate[0], betweenDate[1])
     }
 
     const queryBuilde = this.articleRepository

@@ -8,7 +8,7 @@ export class SearchItemConfig {
   private static readonly CONFIG = {
     user: [listSearchItems.user_name_text, listSearchItems.user_mobile],
     role: [listSearchItems.role_name_text, listSearchItems.role_status],
-    article: [listSearchItems.article_name_text]
+    article: [listSearchItems.article_name_text, listSearchItems.article_create_time]
   }
 
   constructor(searchItemConfigId: string, userId: number) {
