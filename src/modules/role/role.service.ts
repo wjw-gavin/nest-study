@@ -34,7 +34,7 @@ export class RoleService {
     if (reqRoleListDto.role_status) {
       where.status = reqRoleListDto.role_status
     }
-    
+
     const [roles, total] = await this.roleRepository.findAndCount({
       where,
       skip: reqRoleListDto.skip,
