@@ -9,12 +9,19 @@ import {
 } from '@nestjs/common'
 import { Public } from 'src/commons/decorators/public.decorator'
 import { AuthService } from './auth.service'
+import { RegisterUser } from './entities/auth.entity'
 import { User } from '../user/entities/user.entity'
 import { UserInfoDto } from '../user/dto/user.dto'
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @Public()
+  @Post('register')
+  async register(@Body() user: RegisterUser) {
+    return this.authService.register(user.mobile, user.password)
+  }
 
   @Public()
   @Post('login')
